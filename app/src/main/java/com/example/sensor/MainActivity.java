@@ -3,11 +3,13 @@ package com.example.sensor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -106,6 +108,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
         mSensorManager.unregisterListener(this);
     }
+
+    private void ChangeColor(float val) {
+        RelativeLayout layout = findViewById(R.id.layout_relative);
+        if (val <= 40000 && val >= 20000) {
+            layout.setBackgroundColor(Color.RED);
+        }
+        else if (val < 20000 && val > 10) {
+            layout.setBackgroundColor(Color.BLUE);
+        }
+    }
     // listeners to receive data from sensors when data changed
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -115,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (sensorType) {
             case Sensor.TYPE_LIGHT:
                 mTextSensorLight.setText(String.format("Light Sensor : %1$.2f", currentValue));
+                ChangeColor(currentValue);
                 break;
             case Sensor.TYPE_PROXIMITY:
                 mTextSensorProximity.setText(String.format("Proximity Sensor : %1$.2f", currentValue));
