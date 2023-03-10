@@ -117,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else if (val < 20000 && val > 10) {
             layout.setBackgroundColor(Color.BLUE);
         }
+        else {
+            layout.setBackgroundColor(Color.WHITE);
+        }
     }
     // listeners to receive data from sensors when data changed
     @Override
